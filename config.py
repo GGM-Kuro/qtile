@@ -147,9 +147,30 @@ default_decorations = {
 }
 
 
+def default_decor(colour=theme_colors[8]):
+    default={
+        "decorations": [
+    BorderDecoration(
+        colour=theme_colors[2],
+        border_width=[0, 0,12, 0],
+    ),
+    BorderDecoration(
+        colour=colour,
+        border_width=[0, 0, 4, 0],
+    ),
+    RectDecoration(
+        radius=10,
+        filled=True,
+        padding_y=5,
+        colour=theme_colors[2],
+    ),
+    ]
+    }
+    return default
 
 def init_widgets_list():
     widgets_list = [
+        widget.Spacer(length=8),
         widget.Image(
             filename="/home/kuro/Desktop/kuro/Icons/Monkey",
             scale="False",
@@ -160,36 +181,26 @@ def init_widgets_list():
         widget.Prompt(
             foreground=theme_colors[1]
         ),
-        widget.TextBox(
-            text='|',
-            foreground=theme_colors[1],
-            padding=2,
-        ),
+        widget.Spacer(length=8),
         widget.CurrentLayoutIcon(
+
             foreground=theme_colors[1],
-            padding=4,
-            scale=0.6
+            padding=10,
+            width=100,
+            scale=0.6,
+            **default_decor(theme_colors[1]),
         ),
-        widget.TextBox(
-            text='|',
-            foreground=theme_colors[1],
-            padding=2,
-        ),
+        widget.Spacer(length=8),
+
         widget.GenPollCommand(
             fontsize=16,
             update_interval=300,
             cmd=f'{SCRIPTS_PATH}/ethernet_status',
             foreground=theme_colors[8],
+            # backgrgound=theme_colors[2],
             padding=12,
             fmt='󰈀 Local: {}',
-            decorations=[
-                RectDecoration(
-                    **default_decorations,
-                    colour=theme_colors[2],
-                    line_colour=theme_colors[8],
-                    line_width=3,
-                  )
-            ],
+            **default_decor(),
         ),
         widget.Spacer(length=8),
         widget.GenPollText(
@@ -199,15 +210,8 @@ def init_widgets_list():
             ) else theme_colors[1],
             fmt='{}',
             padding=12,
-            decorations=[
-                RectDecoration(
-                    **default_decorations,
-                    colour=theme_colors[2] if "vpn off" in fn.vpn_status(
-                    ) else theme_colors[12],
-                    line_width=2,
-                    line_colour=theme_colors[3] if "vpn off" in fn.vpn_status()else theme_colors[4],
-                )
-            ],
+            **default_decor(theme_colors[3] if "vpn off" in fn.vpn_status(
+            ) else theme_colors[1]),
         ),
         widget.Spacer(length=8),
         widget.GenPollText(
@@ -275,12 +279,7 @@ def init_widgets_list():
             scroll_repeat=0.5,
             scroll_delay=2,
             width=100,
-            decorations=[
-                BorderDecoration(
-                    colour=theme_colors[6],
-                    border_width=[0, 0, 2, 0],
-                )
-            ],
+            **default_decor(),
         ),
         widget.Spacer(length=8),
         widget.GenPollText(
@@ -289,12 +288,7 @@ def init_widgets_list():
                 "printf $(uname -r)", shell=True, text=True),
             foreground=theme_colors[3],
             fmt='❤{}',
-            decorations=[
-                BorderDecoration(
-                    colour=theme_colors[3],
-                    border_width=[0, 0, 2, 0],
-                )
-            ],
+            **default_decor(theme_colors[3])
         ),
         widget.Spacer(length=8),
         widget.KeyboardLayout(
@@ -302,23 +296,13 @@ def init_widgets_list():
             configured_keyboards=['us','latam'],
             fmt='⌨ Kbd: {}',
             padding=10,
-            decorations=[
-                BorderDecoration(
-                    colour=theme_colors[4],
-                    border_width=[0, 0, 2, 0],
-                )
-            ],
+            **default_decor(theme_colors[4]),
         ),
         widget.Spacer(length=8),
         widget.Clock(
             foreground=theme_colors[5],
             format=" %a,%b %d  %H:%M",
-            decorations=[
-                BorderDecoration(
-                    colour=theme_colors[5],
-                    border_width=[0, 0, 2, 0],
-                )
-            ],
+            **default_decor(theme_colors[5]),
         ),
         widget.Spacer(length=8),
         widget.GenPollCommand(
@@ -328,20 +312,23 @@ def init_widgets_list():
             foreground=theme_colors[6],
             opacity=0,
             padding=12,
-            decorations=[
-                BorderDecoration(
-                    colour=theme_colors[6],
-                )
-            ],
+            **default_decor(theme_colors[6]),
         ),
         widget.Systray(
-            padding=3,
-            foreground=theme_colors[6],
+            icon_size=20,
+            margin=100,
+            # foreground=theme_colors[6],
+            decorations=[
+                BorderDecoration(
+                    colour=theme_colors[16],
+                    border_width=[0, 0, 4, 0],
+                ),
+            ],
             # background=theme_colors[6],
 
 
         ),
-        widget.Spacer(length=8),
+        widget.Spacer(length=20),
 
     ]
     return widgets_list
@@ -355,7 +342,7 @@ def init_widgets_screen1():
 def init_widgets_screen2():
     widgets_screen2 = [
         widget.Spacer(length=bar.STRETCH),
-        init_widgets_screen1()[12],
+        init_widgets_screen1()[13],
         widget.Spacer(length=bar.STRETCH),
         init_widgets_screen1()[3]
     ]
@@ -365,7 +352,7 @@ def init_widgets_screen2():
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=49, opacity=1, margin=2, padding=20, background=theme_colors[0])),
-            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0])),
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
 
 
