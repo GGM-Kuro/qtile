@@ -148,6 +148,7 @@ default_decorations = {
 
 
 def default_decor(colour=theme_colors[8]):
+
     default={
         "decorations": [
     BorderDecoration(
@@ -166,6 +167,7 @@ def default_decor(colour=theme_colors[8]):
     ),
     ]
     }
+
     return default
 
 def init_widgets_list():
