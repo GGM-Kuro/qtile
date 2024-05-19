@@ -27,7 +27,7 @@ def autostart():
 
 
 groups = []
-group_names = ["1", "2", "3", "4", "5"]
+group_names = ["5","1", "2", "3", "4" ]
 
 
 group_layouts = ["monadtall", "monadtall", "tile", "tile",
@@ -284,10 +284,14 @@ def init_widgets_list():
         widget.Spacer(length=8),
         widget.GenPollText(
             update_interval=300,
+            scroll=True,
+            scroll_repeat=0.5,
+            scroll_delay=2,
+            width=100,
             func=lambda: subprocess.check_output(
                 "printf $(uname -r)", shell=True, text=True),
             foreground=theme_colors[3],
-            fmt='❤{}',
+            fmt='❤ {}',
             **default_decor(theme_colors[3])
         ),
         widget.Spacer(length=8),
@@ -343,7 +347,7 @@ def init_widgets_screen2():
     widgets_screen2 = [
         widget.Spacer(length=bar.STRETCH),
         init_widgets_screen1()[13],
-        widget.Spacer(length=bar.STRETCH),
+        widget.Spacer(lengRh=bar.STRETCH),
         init_widgets_screen1()[3]
     ]
 
