@@ -62,24 +62,24 @@ Nord = [
     ]
 
 NordFox = [
-[ '#2E3440','#2E3440' ],# bg
-[ '#cdcecf','#cdcecf' ],# fg
-[ '#3b4252','#3b4252' ],# color01
-[ '#bf616a','#bf616a' ],# color02
-[ '#a3be8c','#a3be8c' ],# color03
-[ '#ebcb8b','#ebcb8b' ],# color04
-[ '#81a1c1','#81a1c1' ],# color05
-[ '#b48ead','#b48ead' ],# color06
-[ '#88c0d0','#88c0d0' ],# color07
-[ '#e5e9f0','#e5e9f0' ],
-[ '#465780','#465780' ],
-[ '#d06f79','#d06f79' ],
-[ '#b1d196','#b1d196' ],
-[ '#f0d399','#f0d399' ],
-[ '#8cafd2','#8cafd2' ],
-[ '#c895bf','#c895bf' ],
-[ '#93ccdc','#93ccdc' ],
-[ '#e7ecf4','#e7ecf4' ],
+[ '#1D2330','#1D2330' ],# color00
+[ '#cdcecf','#cdcecf' ],# color01
+[ '#3b4252','#3b4252' ],# color02
+[ '#bf616a','#bf616a' ],# color03
+[ '#a3be8c','#a3be8c' ],# color04
+[ '#ebcb8b','#ebcb8b' ],# color05
+[ '#81a1c1','#81a1c1' ],# color06
+[ '#b48ead','#b48ead' ],# color07
+[ '#88c0d0','#88c0d0' ],# color08
+[ '#e5e9f0','#e5e9f0' ],# color09
+[ '#465780','#465780' ],# color10
+[ '#d06f79','#d06f79' ],# color11
+[ '#b1d196','#b1d196' ],# color12
+[ '#f0d399','#f0d399' ],# color13
+[ '#8cafd2','#8cafd2' ],# color14
+[ '#c895bf','#c895bf' ],# color15
+[ '#93ccdc','#93ccdc' ],# color16
+[ '#e7ecf4','#e7ecf4' ],# color17
 ]
 
 OceanicNext = [

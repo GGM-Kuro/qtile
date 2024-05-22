@@ -1,20 +1,20 @@
-from importlib import import_module
 import os
 import subprocess
 import utils.functions as fn
-from sys import stdout
-from libqtile import bar, extension, hook, layout, qtile, widget
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile import bar, hook, qtile, widget
+
+from libqtile.config import Click, Drag, Screen, Match
 from libqtile.lazy import lazy
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.groupbox2 import GroupBoxRule, ScreenRule
-import qtile_extras
+# import qtile_extras
 from qtile_extras.widget.decorations import BorderDecoration,RectDecoration
-# from qtile_extras.widget import StatusNotifier
-import colors
+import utils.colors
 from settings.keybindings import *
 from settings.globals import *
+from settings.groups import *
+from settings.layouts import layouts,floating_layout
 
 from libqtile.log_utils import logger
 
@@ -26,117 +26,13 @@ def autostart():
     subprocess.call([os.path.join(home, 'autostart.sh')])
 
 
-groups = []
-group_names = ["5","1", "2", "3", "4" ]
+theme_colors = utils.colors.NordFox
 
-
-group_layouts = ["monadtall", "monadtall", "tile", "tile",
-                 "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
-
-for i in range(len(group_names)):
-    groups.append(
-        Group(
-            name=group_names[i],
-            layout=group_layouts[i].lower(),
-        ))
-
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            # mod1 + shift + letter of group = move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=False),
-                desc="Move focused window to group {}".format(i.name),
-            ),
-        ]
-    )
-
-groups.append(
-    Group(
-        name="obsidian",
-        layout="monadtall",
-        label="",
-        spawn="obsidian",
-
-    )
-)
-
-keys.extend([
-    Key(
-        [mod],
-        "6",
-        lazy.group["obsidian"].toscreen(),
-        desc="Switch to notes Group",
-    ),
-
-])
-
-theme_colors = colors.NordFox
-
-layout_theme = {"border_width": 1,
-                "margin": 8,
-                "border_focus": theme_colors[8],
-                "border_normal": theme_colors[0]
-                }
-
-layouts = [
-    layout.Bsp(**layout_theme),
-    layout.Floating(**layout_theme),
-    layout.RatioTile(**layout_theme),
-    layout.VerticalTile(**layout_theme),
-    layout.Matrix(**layout_theme),
-    layout.MonadTall(**layout_theme),
-    # layout.MonadWide(**layout_theme),
-    layout.Tile(
-        shift_windows=True,
-        border_width=0,
-        margin=0,
-        ratio=0.335,
-    ),
-    layout.Max(
-        border_width=0,
-        margin=0,
-    ),
-    # layout.Stack(**layout_theme, num_stacks=2),
-    # layout.Columns(**layout_theme),
-    layout.TreeTab(
-        font="FiraCode-Bold",
-        fontsize=11,
-        border_width=0,
-        bg_color=theme_colors[0],
-        active_bg=theme_colors[8],
-        active_fg=theme_colors[2],
-        inactive_bg=theme_colors[1],
-        inactive_fg=theme_colors[0],
-        padding_left=8,
-        padding_x=8,
-        padding_y=6,
-        sections=["ONE", "TWO", "THREE"],
-        section_fontsize=10,
-        section_fg=theme_colors[7],
-        section_top=15,
-        section_bottom=15,
-        level_shift=8,
-        vspace=3,
-        panel_width=240
-    ),
-    # layout.Zoomy(**layout_theme),
-]
 
 widget_defaults = dict(
     font="Fira Code Bold",
     fontshadow='#000000ee',
     fontsize=16,
-    # background=theme_colors[0]
 )
 
 
@@ -187,13 +83,13 @@ def init_widgets_list():
         widget.CurrentLayoutIcon(
 
             foreground=theme_colors[1],
+
             padding=10,
             width=100,
             scale=0.6,
             **default_decor(theme_colors[1]),
         ),
         widget.Spacer(length=8),
-
         widget.GenPollCommand(
             fontsize=16,
             update_interval=300,
@@ -259,7 +155,7 @@ def init_widgets_list():
             fontsize=25,
             rules=[
                 GroupBoxRule(box_size=50).when(),
-                GroupBoxRule(text='󰮊', text_colour="#71627a").when( group_name="obsidian", focused=True),
+                GroupBoxRule(text='󰮊', text_colour="#71627a").when( group_name="6", focused=True),
                 GroupBoxRule(text_colour=str(theme_colors[3][0])).when( screen=ScreenRule.OTHER, occupied=True),
                 GroupBoxRule(text_colour=str( theme_colors[5][0])).when(occupied=True),
                 GroupBoxRule(text='󰮯').when(focused=True),
@@ -414,29 +310,7 @@ dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = True
-floating_layout = layout.Floating(
-    border_focus=theme_colors[8],
-    border_width=2,
-    float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
-        *layout.Floating.default_float_rules,
-        Match(wm_class="confirmreset"),   # gitk
-        Match(wm_class="dialog"),         # dialog boxes
-        Match(wm_class="download"),       # downloads
-        Match(wm_class="Emulator"),# downloads
-        Match(wm_class="error"),          # error msgs
-        Match(wm_class="file_progress"),  # file progress boxes
-        Match(wm_class='kdenlive'),       # kdenlive
-        Match(wm_class="makebranch"),     # gitk
-        Match(wm_class="maketag"),        # gitk
-        Match(wm_class="notification"),   # notifications
-        Match(wm_class="ssh-askpass"),    # ssh-askpass
-        Match(wm_class="toolbar"),        # toolbars
-        Match(wm_class="Yad"),            # yad boxes
-        Match(title="branchdialog"),      # gitk
-        Match(title='Qalculate!'),        # qalculate-gtk
-    ]
-)
+
 auto_fullscreen = True
 focus_on_window_activation = "urgent"
 reconfigure_screens = True
