@@ -5,7 +5,8 @@ import utils.functions as fn
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "wezterm"      # My terminal of choice
-myBrowser = "firefox"       # My browser of choice
+primaryBrowser = "firefox"       # My browser of choice
+secondaryBrowser = "google-chrome"       # My browser of choice
 
 
 
@@ -15,7 +16,8 @@ keys = [
     Key([mod], "Return", lazy.spawn(myTerm), desc="Terminal"),
     Key([mod], "space", lazy.spawn("rofi -show drun"), desc='Run Launcher'),
     Key([mod, "shift"], "period", lazy.spawn("rofi -modi emoji -show emoji"), desc='Rofi emoji'),
-    Key([mod], "b", lazy.spawn(myBrowser), desc='Web browser'),
+    Key([mod], "b", lazy.spawn(primaryBrowser), desc='Web browser'),
+    Key([mod, "shift"], "b", lazy.spawn(secondaryBrowser), desc='Web browser'),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "shift"], "r", lazy.reload_config(), desc="Reload the config"),
