@@ -35,8 +35,6 @@ floating_layout = layout.Floating(
         Match(wm_class="dialog"),         # dialog boxes
         Match(wm_class="download"),       # downloads
         Match(wm_class="Emulator"),       # Emulator android
-        Match(wm_class="tk"),       # Emulator android
-        Match(wm_class="Tk"),       # Emulator android
         Match(wm_class="error"),          # error msgs
         Match(wm_class="file_progress"),  # file progress boxes
         Match(wm_class='kdenlive'),       # kdenlive
@@ -45,6 +43,13 @@ floating_layout = layout.Floating(
         Match(wm_class="toolbar"),        # toolbars
         Match(wm_class="Yad"),            # yad boxes
         Match(title='Qalculate!'),        # qalculate-gtk
+
+
+        # NOTE: tkinter windows
+        Match(wm_class="tk"),
+        Match(wm_class="Tk"),
+        Match(wm_class="Toplevel"),
+
     ]
 )
 
