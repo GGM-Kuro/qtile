@@ -17,6 +17,7 @@ keys = [
     Key([mod], "space", lazy.spawn("rofi -show drun"), desc='Run Launcher'),
     Key([mod, "shift"], "period", lazy.spawn("rofi -modi emoji -show emoji"), desc='Rofi emoji'),
     Key([mod], "b", lazy.spawn(primaryBrowser), desc='Web browser'),
+    Key([mod, "shift"], "c", lazy.spawn('flameshot gui'), desc='Web browser'),
     Key([mod, "shift"], "b", lazy.spawn(secondaryBrowser), desc='Web browser'),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),

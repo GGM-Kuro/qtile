@@ -257,9 +257,17 @@ def init_screens():
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0])),
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=26))]
 
+def init_fake_screens():
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), size=49, opacity=1, margin=2, padding=20, background=theme_colors[0]),width=1920,height=1080,x=0,y=0),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0]),width=1280,height=720,x=1920,y=0),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0]),width=1280,height=720,x=3200,y=0),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0]),width=1280,height=720,x=1920,y=720),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), size=49, background= theme_colors[0]),width=1280,height=720,x=3200,y=720),
+            ]
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
+    # fake_screens = init_fake_screens()
     widgets_list = init_widgets_list()
     widgets_screen1 = init_widgets_screen1()
     widgets_screen2 = init_widgets_screen2()
